@@ -5,8 +5,8 @@ Meteor.startup(function () {
 if (Meteor.isClient) {
 
     Session.set("Mongol", {
-        'collections': ['Canvas'],
-        'display': false,
+        'collections': ['Canvas', "Users"],
+        'display': true,
         'opacity_normal': ".7",
         'opacity_expand': ".9",
     });

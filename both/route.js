@@ -4,5 +4,9 @@ Router.configure({
 
 
 Router.route('/', {
-    name: 'login'
+    name: 'canvas'
+});
+
+Router.route('/profile', {
+    name: 'profile'
 });

@@ -1,5 +1,35 @@
 Canvas = new Mongo.Collection('canvas');
 
+Canvas.before.insert(function (userId, doc) {
+    doc.createdAt = new Date();
+});
+
+Canvas.helpers({
+    datePosted: function () {
+        return moment(this.createdAt).format('M/D');
+    },
+    author: function () {
+        return Meteor.users.findOne({_id: this.userId});
+    }
+});
+
+RegExp.escape = function(s) {
+    return s.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&');
+};
+
+Canvas.search = function(query) {
+    if (!query) {
+        return;
+    }
+    return Canvas.find({
+        name: { $regex: RegExp.escape(query), $options: 'i' }
+    }, {
+        limit: 20
+    });
+};
+
+
+
 Canvas.attachSchema(new SimpleSchema({
 
     title: {
@@ -67,5 +97,21 @@ Canvas.attachSchema(new SimpleSchema({
     numberOfComments:{
         type: Number,
         label: "Comments"
+    },
+    userId: {
+        type: String,
+        autoValue: function () {
+            if (this.isSet) {
+                return;
+            }
+            if (this.isInsert) {
+                return Meteor.userId();
+            } else {
+                this.unset();
+            }
+        }
+    },
+    createdAt: {
+        type: Date
     }
 }));
