@@ -1,0 +1,9 @@
+template(name="_canvasItem")
+    with canvas
+        +ionItem(path=../path iconLeft=true iconRight=true)
+            h2 #{title}
+            p
+                #{tagline}
+            span(class="comments-count")
+                #{numberOfComments}
+                +ionIcon(icon="ios-chatbubble")

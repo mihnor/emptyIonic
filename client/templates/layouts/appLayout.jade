@@ -1,0 +1,13 @@
+template(name="appLayout")
+    +ionBody
+        +ionNavBar
+        +ionNavView
+            +yield
+        if isIOs
+            +ionTabs(style="ios")
+                +ionTab(title="Canvas" path="canvas" iconOff="ios-bolt-outline" iconOn="ios-bolt" class="tab-item-positive")
+                +ionTab(title="Profile" path="profile" iconOff="ios-person-outline" iconOn="ios-person" class="tab-item-positive")
+        else
+            +ionTabs(style="android")
+                +ionTab(title="Canvas" path="canvas" icon="android-star")
+                +ionTab(title="Profile" path="profile" icon="android-happy")
